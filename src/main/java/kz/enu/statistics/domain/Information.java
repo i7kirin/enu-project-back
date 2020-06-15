@@ -13,8 +13,6 @@ public class Information {
     private City city;
     private Integer year;
     private Integer population;
-    private List<Employed> employed;
-    private List<Unemployed> unemployed;
     private List<Professions> professions;
     private String description;
 }

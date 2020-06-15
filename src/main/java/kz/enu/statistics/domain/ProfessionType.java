@@ -4,10 +4,10 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 @Data
-public class Employed {
+public class ProfessionType {
 
     @Id
     private String id;
-    private Integer age;
-    private Integer count;
+    private String type;
+    private String description;
 }

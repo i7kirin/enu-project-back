@@ -1,7 +1,10 @@
 package kz.enu.statistics.api;
 
 import kz.enu.statistics.domain.*;
+import kz.enu.statistics.dto.AverageSalary;
+import kz.enu.statistics.dto.AvgSalaryByType;
 import kz.enu.statistics.dto.GeneralInformation;
+import kz.enu.statistics.dto.ITEmployment;
 import kz.enu.statistics.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,18 +46,43 @@ public class StatisticsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(statisticsService.createProfession(cityId, year, professions));
     }
 
-    @PutMapping("/employed/{cityId}/{year}")
-    public ResponseEntity<List<Employed>> createEmployed(@PathVariable String cityId, @PathVariable Integer year, @RequestBody Employed employed){
-        return ResponseEntity.status(HttpStatus.CREATED).body(statisticsService.createEmployed(cityId, year, employed));
+    @RequestMapping(value = "/get-avg-salary/{city}", method = RequestMethod.GET)
+    public List<AverageSalary> getAvgSalaryByCityAndYear(@PathVariable String city){
+        return statisticsService.getAvgSalaryByCityAndYear(city);
     }
 
-    @PutMapping("/unemployed/{cityId}/{year}")
-    public ResponseEntity<List<Unemployed>> createUnemployed(@PathVariable String cityId, @PathVariable Integer year, @RequestBody Unemployed unemployed){
-        return ResponseEntity.status(HttpStatus.CREATED).body(statisticsService.createUnemployed(cityId, year, unemployed));
+    @GetMapping("/general-info/{year}")
+    public List<AverageSalary> getGeneralInformation(@PathVariable Integer year){
+        return statisticsService.getGeneralInformation(year);
     }
 
-    @GetMapping("/general-info")
-    public ResponseEntity<List<GeneralInformation>> createUnemployed(){
-        return ResponseEntity.ok(statisticsService.getGeneralInfo());
+    @GetMapping("/employment/{city}/{year}")
+    public List<GeneralInformation> getEmployment(@PathVariable String city, @PathVariable Integer year){
+        return statisticsService.getEmployment(city, year);
+    }
+
+    @GetMapping("/young-employment/{year}")
+    public List<GeneralInformation> getYoungEmployment(@PathVariable Integer year){
+        return statisticsService.getYoungEmployment(year);
+    }
+
+    @PostMapping("/profession-type")
+    public ResponseEntity<ProfessionType> createProfessionType(@RequestBody ProfessionType professionType){
+        return ResponseEntity.status(HttpStatus.CREATED).body(statisticsService.createProfessionType(professionType));
+    }
+
+    @GetMapping("/profession-type")
+    public ResponseEntity<List<ProfessionType>> createProfessionType(){
+        return ResponseEntity.status(HttpStatus.CREATED).body(statisticsService.getProfessionType());
+    }
+
+    @GetMapping("/salary/by-profession-type/{id}/{year}")
+    public List<AvgSalaryByType> getSalaryByProfession(@PathVariable String id, @PathVariable Integer year){
+        return statisticsService.getSalaryByProfession(year, id);
+    }
+
+    @GetMapping("/it/employment/{id}/{year}")
+    public List<ITEmployment> getItEmpl(@PathVariable String id, @PathVariable Integer year){
+        return statisticsService.getItEmpl(id, year);
     }
 }

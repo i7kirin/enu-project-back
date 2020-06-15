@@ -9,7 +9,10 @@ public class Professions {
     @Id
     private String id;
     private String name;
+    private Integer age;
     private Integer salary;
+    private ProfessionType professionType;
     private Integer employeeCount;
     private Integer employerCount;
+    private Integer unemployedCount;
 }

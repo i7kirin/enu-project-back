@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.HashMap;
 
 @Data
-public class GeneralInformation {
-    private String id;
+public class AverageSalary {
+    private HashMap<String, String> id;
     private HashMap<String, Integer> value;
 }
